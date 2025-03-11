@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultoría Contable</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <style>
+        :root {
+            --primary-color: #2c6eb5;
+            --secondary-color: #1e4976;
+            --accent-color: #32b9c4;
+            --light-color: #f8f9fa;
+            --dark-color: #2c3e50;
+            --text-color: #333;
+            --gray-light: #e9ecef;
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--light-color);
+        }
+        
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        a:hover {
+            color: var(--accent-color);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+        
+        nav ul li a {
+            color: white;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+        
+        nav ul li a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: url('/api/placeholder/1200/600') center/cover no-repeat;
+            position: relative;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(rgba(30, 73, 118, 0.8), rgba(44, 62, 80, 0.9));
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            animation: fadeInDown 1s;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+            animation: fadeInUp 2s;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+        }
+        
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-color);
+        }
+        
+        .btn i {
+            margin-right: 10px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Features/Services Section */
+        .services {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-header h2 {
+            font-size: 2.2rem;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-header h2::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 3px;
+            background-color: var(--accent-color);
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background-color: var(--gray-light);
+            border-radius: 50%;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .service-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .service-card p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        /* Appointment Section */
+        .appointment {
+            padding: 80px 0;
+            background-color: var(--gray-light);
+        }
+        
+        .appointment-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .appointment-image {
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+        
+        .appointment-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .appointment-form {
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(44, 110, 181, 0.2);
+        }
+        
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        /* Resources Section */
+        .resources {
+            padding: 80px 0;
+            background-color: white;
+        }
+        
+        .resources-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+            width: 100%;
+        }
+        
+        .resource-card {
+            background-color: var(--light-color);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .resource-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        
+        .resource-image {
+            height: 200px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .resource-content {
+            padding: 25px;
+        }
+        
+        .resource-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+        
+        .resource-content p {
+            margin-bottom: 20px;
+            color: #666;
+        }
+        
+        .btn-text {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .btn-text i {
+            margin-left: 8px;
+            transition: var(--transition);
+        }
+        
+        .btn-text:hover i {
+            transform: translateX(5px);
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), var(--secondary-color));
+            color: white;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .contact-info {
+            list-style: none;
+        }
+        
+        .contact-info li {
+            display: flex;
+            margin-bottom: 15px;
+            align-items: flex-start;
+        }
+        
+        .contact-info i {
+            margin-right: 15px;
+            margin-top: 5px;
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            color: white;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        /* Chat Icon */
+        .chat-icon {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: var(--transition);
+            z-index: 100;
+        }
+        
+        .chat-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .appointment-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                right: 0;
+                background: var(--primary-color);
+                height: 0;
+                overflow: hidden;
+                transition: var(--transition);
+            }
+            
+            nav.active {
+                height: auto;
+                padding: 20px 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 0;
+                text-align: center;
+            }
+            
+            nav ul li {
+                margin: 0;
+            }
+            
+            nav ul li a {
+                display: block;
+                padding: 12px;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fas fa-chart-pie"></i>
+                <span>Consultoría Contable</span>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#servicios"><i class="fas fa-briefcase"></i> Servicios</a></li>
+                    <li><a href="#agenda"><i class="far fa-calendar-alt"></i> Agendar Cita</a></li>
+                    <li><a href="#recursos"><i class="fas fa-book"></i> Recursos</a></li>
+                    <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container hero-content">
+            <h1>Soluciones Contables Profesionales para tu Empresa</h1>
+            <p>Optimiza tus finanzas y cumple con tus obligaciones fiscales de manera eficiente con nuestro equipo de expertos contables.</p>
+            <div class="btn-container">
+                <button class="btn btn-primary" onclick="openChat()">
+                    <i class="fas fa-robot"></i> Consultar al Asistente
+                </button>
+                <button class="btn btn-secondary" onclick="scrollToSection('agenda')">
+                    <i class="far fa-calendar-check"></i> Agendar Cita
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <section id="servicios" class="services">
+        <div class="container">
+            <div class="section-header">
+                <h2>Nuestros Servicios</h2>
+                <p>Asesoría personalizada para potenciar el crecimiento de tu negocio</p>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-file-invoice"></i>
+                    </div>
+                    <h3>Declaración de Impuestos</h3>
+                    <p>Preparamos y presentamos tus declaraciones fiscales cumpliendo con todas las normativas vigentes.</p>
+                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-receipt"></i>
+                    </div>
+                    <h3>Facturación Electrónica</h3>
+                    <p>Implementamos y gestionamos tu sistema de facturación electrónica de manera eficiente.</p>
+                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Estados Financieros</h3>
+                    <p>Elaboramos y analizamos tus estados financieros para una mejor toma de decisiones.</p>
+                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Asesoría Fiscal</h3>
+                    <p>Te ayudamos a optimizar tu carga fiscal y a cumplir con tus obligaciones tributarias.</p>
+                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="agenda" class="appointment">
+        <div class="container">
+            <div class="section-header">
+                <h2>Agenda una Cita</h2>
+                <p>Reserva tu consulta personalizada con nuestros expertos contables</p>
+            </div>
+            <div class="appointment-container">
+                <div class="appointment-image">
+                    <img src="/api/placeholder/600/400" alt="Consultoría contable">
+                </div>
+                <div class="appointment-form">
+                    <form id="appointmentForm">
+                        <div class="form-group">
+                            <label for="nombre" class="form-label">Nombre completo</label>
+                            <input type="text" id="nombre" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" id="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telefono" class="form-label">Teléfono</label>
+                            <input type="tel" id="telefono" class="form-control">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fecha" class="form-label">Fecha preferida</label>
+                            <input type="date" id="fecha" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="servicio" class="form-label">Servicio requerido</label>
+                            <select id="servicio" class="form-control" required>
+                                <option value="">Seleccionar servicio</option>
+                                <option value="impuestos">Declaración de impuestos</option>
+                                <option value="facturacion">Facturación electrónica</option>
+                                <option value="estados">Estados financieros</option>
+                                <option value="asesoria">Asesoría fiscal</option>
+                                <option value="otro">Otro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="mensaje" class="form-label">Detalles de tu consulta</label>
+                            <textarea id="mensaje" class="form-control" rows="4" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">
+                            <i class="far fa-calendar-check"></i> Confirmar Cita
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="recursos" class="resources">
+        <div class="container resources-container">
+            <div class="section-header">
+                <h2>Centro de Recursos</h2>
+                <p>Información y herramientas útiles para la gestión contable de tu negocio</p>
+            </div>
+            <div class="resources-grid">
+                <div class="resource-card">
+                    <div class="resource-image">
+                        <img src="/api/placeholder/400/200" alt="Guías contables">
+                    </div>
+                    <div class="resource-content">
+                        <h3>Guías Contables</h3>
+                        <p>Descarga nuestras guías sobre contabilidad básica, facturación y declaraciones de impuestos.</p>
+                        <a href="#" class="btn-text">Ver guías <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-image">
+                        <img src="/api/placeholder/400/200" alt="Preguntas frecuentes">
+                    </div>
+                    <div class="resource-content">
+                        <h3>Preguntas Frecuentes</h3>
+                        <p>Resolvemos las dudas más comunes sobre contabilidad y finanzas para pequeñas empresas.</p>
+                        <a href="#" class="btn-text">Leer más <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                <div class="resource-card">
+                    <div class="resource-image">
+                        <img src="/api/placeholder/400/200" alt="Calculadoras">
+                    </div>
+                    <div class="resource-content">
+                        <h3>Calculadoras Financieras</h3>
+                        <p>Herramientas para calcular impuestos, depreciaciones, intereses y más para tu negocio.</p>
+                        <a href="#" class="btn-text">Usar calculadoras <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h3>Consultoría Contable</h3>
+                    <p>Ofrecemos servicios contables profesionales para pequeñas y medianas empresas, con más de 10 años de experiencia en el sector.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Enlaces Rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#agenda">Agendar Cita</a></li>
+                        <li><a href="#recursos">Recursos</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Servicios</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Declaración de impuestos</a></li>
+                        <li><a href="#">Facturación electrónica</a></li>
+                        <li><a href="#">Estados financieros</a></li>
+                        <li><a href="#">Asesoría fiscal</a></li>
+                        <li><a href="#">Planeación financiera</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contáctanos</h3>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Calle Principal #123, Ciudad</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+123 456 789</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>contacto@consultoria.com</span>
+                        </li>
+                        <li>
+                            <i class="far fa-clock"></i>
+                            <span>Lun - Vie: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Consultoría Contable. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <div class="chat-icon" onclick="openChat()">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+    
+    <script>
+        function openChat() {
+            alert("¡Bienvenido al asistente virtual de Consultoría Contable! ¿En qué podemos ayudarte hoy?");
+        }
+        
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            document.getElementById('mainNav').classList.toggle('active');
+            const icon = this.querySelector('i');
+            if (icon.classList.contains('fa-bars')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert("¡Gracias por agendar tu cita! Te contactaremos pronto para confirmar tu reserva.");
+            this.reset();
+        });
+        
+        // Añadir efectos de animación al scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                if (sectionTop < windowHeight * 0.75) {
+                    section.style.animation = 'fadeIn 1s forwards';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

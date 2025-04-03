@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard Contador - Conecta Contable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c6eb5;
+      --secondary-color: #1e4976;
+      --accent-color: #32b9c4;
+      --light-color: #f8f9fa;
+      --dark-color: #2c3e50;
+      --text-color: #333;
+      --gray-light: #e9ecef;
+      --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+      --btn-bg: var(--accent-color);
+      --highlight-border: 3px solid var(--accent-color);
+      --yellow: #e6b800;
+      --green: #28a745;
+      --orange: #fd7e14;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 10px 20px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header .logo i {
+      color: var(--accent-color);
+    }
+    /* Menú de Perfil y Notificaciones */
+    nav {
+      position: relative;
+    }
+    .profile-menu-container {
+      display: flex;
+      align-items: center;
+    }
+    .notifications-icon {
+      color: #32b9c4; /* Azul claro */
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-right: 10px;
+      /* Se eliminan width, height, border-radius, background-color y border */
+    }
+   .notifications-icon:hover {
+      opacity: 0.9;
+      /* Puedes mantener el efecto de hover que prefieras */
+    }
+    .profile-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: var(--accent-color);
+      color: var(--secondary-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      border: 2px solid white;
+      transition: var(--transition);
+    }
+    .profile-icon:hover {
+      opacity: 0.9;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 55px;
+      right: 0;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+      min-width: 200px;
+      z-index: 1000;
+      overflow: hidden;
+      border: 1px solid var(--gray-light);
+    }
+    .dropdown-menu.show {
+      display: block;
+    }
+    .dropdown-menu ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .dropdown-menu ul li a {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 20px;
+      color: var(--dark-color);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      border-bottom: 1px solid var(--gray-light);
+    }
+    .dropdown-menu ul li:last-child a {
+      border-bottom: none;
+    }
+    .dropdown-menu ul li a:hover {
+      background-color: var(--gray-light);
+      color: var(--primary-color);
+    }
+    .dropdown-menu ul li a i {
+      width: 18px;
+      text-align: center;
+      color: var(--secondary-color);
+    }
+    .dropdown-menu ul li a.logout {
+      color: #e74c3c;
+    }
+    .dropdown-menu ul li a.logout:hover {
+      background-color: #e74c3c;
+      color: white;
+    }
+    .dropdown-menu ul li a.logout i {
+      color: #e74c3c;
+    }
+    .dropdown-menu ul li a.logout:hover i {
+      color: white;
+    }
+    /* Fin Menú de Perfil y Notificaciones */
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .client-filter {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: var(--shadow);
+    }
+    .client-filter label {
+      font-weight: 500;
+      color: var(--dark-color);
+    }
+    .client-filter select {
+      padding: 8px 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1rem;
+      min-width: 200px;
+    }
+    h2.section-title {
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: var(--dark-color);
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 5px;
+      display: flex; /* Habilitado para alinear iconos y texto */
+      align-items: center; /* Alineación vertical */
+      gap: 8px; /* Espacio entre el icono izquierdo y el texto */
+    }
+    .dashboard-section {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+      margin-bottom: 30px;
+      scroll-margin-top: 80px;
+    }
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .card {
+      background-color: var(--gray-light);
+      border-radius: 8px;
+      padding: 15px;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: var(--primary-color);
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .card p {
+      font-size: 0.95rem;
+      color: var(--dark-color);
+      margin-bottom: 10px;
+    }
+    .card .btn {
+      background-color: var(--btn-bg);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+      align-self: flex-start;
+      text-align: center;
+      margin-top: auto;
+    }
+    .card .btn:hover {
+      opacity: 0.9;
+    }
+    /* Diagrama Circular */
+    .diagram-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .circular-diagram {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: conic-gradient(
+        var(--accent-color) 0% 25%,
+        var(--yellow) 25% 50%,
+        var(--green) 50% 75%,
+        var(--orange) 75% 100%
+      );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--dark-color);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      text-align: center;
+      font-weight: bold;
+      padding: 5px;
+    }
+    .diagram-legend {
+      margin-top: 15px;
+      display: flex;
+      gap: 15px;
+      font-size: 0.85rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .legend-color {
+      width: 15px;
+      height: 15px;
+      border-radius: 3px;
+    }
+       /* ---------------------------------------
+       Sección Subir Recursos
+       --------------------------------------- */
+    .upload-container {
+      text-align: center;
+      background-color: var(--gray-light);
+      border-radius: 8px;
+      padding: 30px;
+      box-shadow: var(--shadow);
+    }
+    .upload-container .upload-button {
+      display: inline-block;
+      background-color: var(--accent-color);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      border: none;
+      transition: var(--transition);
+      margin-bottom: 15px;
+    }
+    .upload-container .upload-button:hover {
+      opacity: 0.9;
+    }
+    .upload-container .upload-instructions {
+      font-size: 0.95rem;
+      color: var(--dark-color);
+      margin-bottom: 20px;
+    }
+    .upload-container .description-textarea {
+      width: 100%;
+      min-height: 50px; /* Ajustado a 50px */
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      resize: vertical;
+      font-size: 1rem;
+    }
+    .upload-container .publish-btn {
+      display: inline-block;
+      background-color: var(--btn-bg);
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .upload-container .publish-btn:hover {
+      opacity: 0.9;
+    }
+    /* Estados */
+    .estado-confirmada { color: var(--green); font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+    .estado-pendiente { color: var(--yellow); font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+    .estado-cierre { color: red; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+    .estado-revision { color: var(--yellow); font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+    .estado-resuelto { color: var(--green); font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+    .estado-vencida { color: red; font-weight: bold; display: inline-flex; align-items: center; gap: 5px; }
+
+    /* Tareas Pendientes */
+    .task-card p {
+      margin-bottom: 8px;
+    }
+    .task-card .client-tag {
+      font-size: 0.8em;
+      padding: 2px 6px;
+      border-radius: 4px;
+      background-color: var(--secondary-color);
+      color: white;
+      margin-left: 8px;
+    }
+
+    /* Estilos para el nuevo icono de agregar tarea */
+    .section-title .add-task-icon {
+      margin-left: auto; /* Empuja el icono a la derecha */
+      color: var(--accent-color); /* Color del icono */
+      cursor: pointer; /* Cambia el cursor a una mano */
+      font-size: 1.5rem; /* Tamaño del icono (ajustable) */
+      transition: var(--transition); /* Transición suave para hover */
+    }
+
+    .section-title .add-task-icon:hover {
+      opacity: 0.8; /* Ligera transparencia al pasar el ratón */
+      transform: scale(1.1); /* Un pequeño zoom al pasar el ratón */
+    }
+
+    /* Toggle (Switch) */
+    .toggle-container {
+      display: flex;
+      align-items: center;
+      margin: 10px 0;
+    }
+    .toggle {
+      position: relative;
+      display: inline-block;
+      width: 40px;
+      height: 20px;
+      margin-right: 8px;
+    }
+    .toggle input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .toggle-slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      transition: .4s;
+      border-radius: 20px;
+    }
+    .toggle-slider:before {
+      position: absolute;
+      content: "";
+      height: 16px;
+      width: 16px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      transition: .4s;
+      border-radius: 50%;
+    }
+    .toggle input:checked + .toggle-slider {
+      background-color: var(--accent-color);
+    }
+    .toggle input:checked + .toggle-slider:before {
+      transform: translateX(20px);
+    }
+    /* Responsive */
+    @media (max-width: 768px) {
+      .dropdown-menu {
+        min-width: 180px;
+      }
+      h2.section-title {
+        font-size: 1.6rem; /* Ajustar tamaño de fuente en pantallas pequeñas */
+      }
+      .section-title .add-task-icon {
+        font-size: 1.3rem; /* Ajustar tamaño del icono en pantallas pequeñas */
+      }
+    }
+    @media (max-width: 480px) {
+      header .logo span {
+        display: none;
+      }
+      .profile-icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+      }
+      .dropdown-menu {
+        top: 50px;
+      }
+      h2.section-title {
+        font-size: 1.4rem; /* Ajustar tamaño de fuente en pantallas muy pequeñas */
+      }
+      .section-title .add-task-icon {
+        font-size: 1.2rem; /* Ajustar tamaño del icono en pantallas muy pequeñas */
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Modificado con Notificaciones -->
+  <header>
+    <div class="logo">
+      <i class="fas fa-chart-pie"></i>
+      <span>Conecta Contable</span>
+    </div>
+    <!-- Menú de Perfil y Notificaciones -->
+    <nav>
+      <div class="profile-menu-container">
+        <!-- Ícono de Notificaciones -->
+        <div class="notifications-icon" id="notificationsIcon">
+          <i class="fas fa-bell"></i>
+        </div>
+        <!-- Ícono de Perfil -->
+        <div class="profile-icon" id="profileIcon">
+          EM
+        </div>
+        <!-- Dropdown del Perfil -->
+        <div class="dropdown-menu" id="profileDropdown">
+          <ul>
+            <li><a href="#resumen-cliente"><i class="fas fa-tachometer-alt"></i> Resumen Cliente</a></li>
+            <li><a href="#tareas-pendientes"><i class="fas fa-tasks"></i> Tareas Pendientes</a></li>
+            <li><a href="#citas-asignadas"><i class="fas fa-calendar-alt"></i> Citas Asignadas</a></li>
+            <li><a href="#subir-recursos"><i class="fas fa-upload"></i> Subir Recursos</a></li>
+            <li><a href="#casos-especiales"><i class="fas fa-exclamation-triangle"></i> Casos Especiales</a></li>
+            <li><a href="#"><i class="fas fa-user-cog"></i> Mi Perfil</a></li>
+            <li><a href="#cerrar-sesion" class="logout"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+          </ul>
+        </div>
+        <!-- Dropdown de Notificaciones -->
+        <div class="dropdown-menu" id="notificationsDropdown">
+          <ul>
+            <li><a href="#"><i class="fas fa-info-circle"></i> Actualización: Nueva versión disponible</a></li>
+            <li><a href="#"><i class="fas fa-exclamation-triangle"></i> Alerta SAT/DIAN: Nuevas reglas</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container">
+    <!-- Filtro de Cliente -->
+    <div class="client-filter">
+      <label for="clientSelector"><i class="fas fa-users"></i> Seleccionar Cliente:</label>
+      <select id="clientSelector" name="clientSelector">
+        <option value="camilo">Camilo Soler</option>
+        <option value="edison">Edison Moreno</option>
+        <option value="lilia">Lilia Amortegui</option>
+      </select>
+    </div>
+
+    <!-- Sección Resumen del Cliente -->
+    <section class="dashboard-section" id="resumen-cliente">
+      <h2 class="section-title">Resumen del Cliente: <span id="selectedClientName">Camilo Soler</span></h2>
+      <div class="diagram-container">
+        <div class="circular-diagram" id="circularDiagram">
+          Camilo Soler - Progreso
+        </div>
+        <div class="diagram-legend">
+          <div class="legend-item"><span class="legend-color" style="background-color: var(--accent-color);"></span> Impuestos</div>
+          <div class="legend-item"><span class="legend-color" style="background-color: var(--yellow);"></span> Facturación</div>
+          <div class="legend-item"><span class="legend-color" style="background-color: var(--green);"></span> EEFF</div>
+          <div class="legend-item"><span class="legend-color" style="background-color: var(--orange);"></span> Asesoría</div>
+        </div>
+      </div>
+      <div class="section-grid">
+        <div class="card service-card" data-service="Declaración de Impuestos">
+          <h3><i class="fas fa-file-invoice-dollar"></i> Declaración de Impuestos</h3>
+          <p>Estado: Al día<br>Próxima declaración: 15/07/2025</p>
+          <div class="toggle-container">
+            <label class="toggle">
+              <input type="checkbox" class="service-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Activo</span>
+          </div>
+          <button class="btn">Ver más información</button>
+        </div>
+        <div class="card service-card" data-service="Facturación Electrónica">
+          <h3><i class="fas fa-receipt"></i> Facturación Electrónica</h3>
+          <p>Pendientes de emisión: 3<br>Pagos recibidos: 95%</p>
+          <div class="toggle-container">
+            <label class="toggle">
+              <input type="checkbox" class="service-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Activo</span>
+          </div>
+          <button class="btn">Ver más información</button>
+        </div>
+        <div class="card service-card" data-service="Estados Financieros">
+          <h3><i class="fas fa-chart-line"></i> Estados Financieros</h3>
+          <p>Último cierre: 30/04/2025<br>Balance actualizado.</p>
+          <div class="toggle-container">
+            <label class="toggle">
+              <input type="checkbox" class="service-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Activo</span>
+          </div>
+          <button class="btn">Ver más información</button>
+        </div>
+        <div class="card service-card" data-service="Asesoría Contable">
+          <h3><i class="fas fa-user-tie"></i> Asesoría Contable</h3>
+          <p>Consultas pendientes: 1<br>Última sesión: 10/05/2025</p>
+          <div class="toggle-container">
+            <label class="toggle">
+              <input type="checkbox" class="service-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label">Activo</span>
+          </div>
+          <button class="btn">Ver más información</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Subir Recursos -->
+    <section class="dashboard-section" id="subir-recursos">
+      <h2 class="section-title"><i class="fas fa-upload"></i> Subir Recursos</h2>
+      <div class="upload-container">
+        <button class="upload-button">Cargar archivo</button>
+        <p class="upload-instructions">arrastra un documento o pega la imagen aquí para cargarlo fácilmente</p>
+        <textarea class="description-textarea" placeholder="Agrega una descripción..."></textarea>
+        <button class="publish-btn">Publicar</button>
+      </div>
+    </section>
+
+    <!-- Sección Tareas Pendientes -->
+    <section class="dashboard-section" id="tareas-pendientes">
+      <!-- Título modificado con el nuevo icono -->
+      <h2 class="section-title">
+        <i class="fas fa-tasks"></i> Mis Tareas Pendientes
+        <i class="fas fa-plus-circle add-task-icon" title="Agregar nueva tarea"></i> <!-- Icono añadido -->
+      </h2>
+      <div class="section-grid">
+        <div class="card task-card">
+          <h3><i class="fas fa-file-alt"></i> Preparar Declaración Mensual</h3>
+          <p>
+            Revisar y enviar IVA de Mayo.<br>
+            <strong>Cliente:</strong> <span class="client-tag">Camilo Soler</span><br>
+            <strong>Vence:</strong> 20/06/2025<br>
+            <strong>Estado:</strong> <span class="estado-pendiente"><i class="fas fa-clock"></i> Pendiente</span>
+          </p>
+          <button class="btn">Cambiar estado</button>
+        </div>
+        <div class="card task-card">
+          <h3><i class="fas fa-headset"></i> Seguimiento Consulta Fiscal</h3>
+          <p>
+            Contactar sobre inconsistencia detectada.<br>
+            <strong>Cliente:</strong> <span class="client-tag">Edison Moreno</span><br>
+            <strong>Vence:</strong> 15/06/2025<br>
+            <strong>Estado:</strong> <span class="estado-pendiente"><i class="fas fa-clock"></i> Pendiente</span>
+          </p>
+          <button class="btn">Cambiar estado</button>
+        </div>
+        <div class="card task-card">
+          <h3><i class="fas fa-exclamation-triangle"></i> Revisar Pagos Atrasados</h3>
+          <p>
+            Generar reporte de cuentas por cobrar.<br>
+            <strong>Cliente:</strong> <span class="client-tag">Camilo Soler</span><br>
+            <strong>Vence:</strong> 10/06/2025<br>
+            <strong>Estado:</strong> <span class="estado-vencida"><i class="fas fa-calendar-times"></i> Vencida</span>
+          </p>
+          <button class="btn">Cambiar estado</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Citas Asignadas -->
+    <section class="dashboard-section" id="citas-asignadas">
+      <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Mis Citas Asignadas</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3><i class="fas fa-video"></i> Videollamada con Edison Moreno</h3>
+          <p>
+            <strong>Fecha:</strong> 25/06/2025 - 10:00 AM<br>
+            <strong>Tema:</strong> Revisión Estados Financieros Q2<br>
+            <strong>Estado:</strong> <span class="estado-confirmada"><i class="fas fa-check-circle"></i> Confirmada</span>
+          </p>
+          <button class="btn">Ver Detalles</button>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-user-friends"></i> Reunión Presencial con Camilo Soler</h3>
+          <p>
+            <strong>Fecha:</strong> 28/06/2025 - 09:30 AM<br>
+            <strong>Tema:</strong> Planificación Fiscal Anual<br>
+            <strong>Estado:</strong> <span class="estado-confirmada"><i class="fas fa-check-circle"></i> Confirmada</span>
+          </p>
+          <button class="btn">Ver Detalles</button>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-phone"></i> Llamada con Lilia Amortegui</h3>
+          <p>
+            <strong>Fecha:</strong> 01/07/2025 - 15:00 PM<br>
+            <strong>Tema:</strong> Consulta rápida sobre facturación<br>
+            <strong>Estado:</strong> <span class="estado-pendiente"><i class="fas fa-clock"></i> Por confirmar</span>
+          </p>
+          <button class="btn">Ver Detalles</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección Casos Especiales -->
+    <section class="dashboard-section" id="casos-especiales">
+      <h2 class="section-title"><i class="fas fa-exclamation-triangle"></i> Casos Especiales Clientes</h2>
+      <div class="section-grid">
+        <div class="card">
+          <h3><i class="fas fa-exclamation-circle"></i> Camilo Soler - Facturas</h3>
+          <p>
+            Problema en registro de facturas serie F001.<br>
+            <strong>Estado:</strong> <span class="estado-revision"><i class="fas fa-search"></i> En revisión</span>
+          </p>
+          <button class="btn" style="align-self: flex-end;">Ver mas</button>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-exclamation-triangle"></i> Edison Moreno - Declaración</h3>
+          <p>
+            Inconsistencias detectadas en declaración Abril.<br>
+            <strong>Estado:</strong> <span class="estado-revision"><i class="fas fa-search"></i> En revisión</span>
+          </p>
+          <button class="btn" style="align-self: flex-end;">Ver mas</button>
+        </div>
+        <div class="card">
+          <h3><i class="fas fa-check-circle"></i> Lilia Amortegui - Consulta</h3>
+          <p>
+            Revisión de régimen tributario finalizada.<br>
+            <strong>Estado:</strong> <span class="estado-resuelto"><i class="fas fa-check-circle"></i> Resuelto</span>
+          </p>
+          <button class="btn" style="align-self: flex-end;">Ver mas</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    // --- Script para el menú desplegable y selector de cliente ---
+    const profileIcon = document.getElementById('profileIcon');
+    const dropdownMenu = document.getElementById('profileDropdown');
+    const clientSelector = document.getElementById('clientSelector');
+    const selectedClientNameSpan = document.getElementById('selectedClientName');
+    const circularDiagram = document.getElementById('circularDiagram');
+
+    // Funcionalidad del dropdown del perfil
+    profileIcon.addEventListener('click', function(event) {
+      event.stopPropagation(); // Evita que el clic se propague al window
+      // Cierra el dropdown de notificaciones si está abierto
+      notificationsDropdown.classList.remove('show');
+      // Muestra/oculta el dropdown de perfil
+      dropdownMenu.classList.toggle('show');
+    });
+
+    // Dropdown de Notificaciones
+    const notificationsIcon = document.getElementById('notificationsIcon');
+    const notificationsDropdown = document.getElementById('notificationsDropdown');
+    notificationsIcon.addEventListener('click', function(event) {
+      event.stopPropagation(); // Evita que el clic se propague al window
+      // Cierra el dropdown de perfil si está abierto
+      dropdownMenu.classList.remove('show');
+      // Muestra/oculta el dropdown de notificaciones
+      notificationsDropdown.classList.toggle('show');
+    });
+
+    // Cerrar dropdowns al hacer clic fuera
+    window.addEventListener('click', function(event) {
+      // Si el clic NO fue dentro del icono de perfil NI dentro del dropdown de perfil
+      if (!profileIcon.contains(event.target) && !dropdownMenu.contains(event.target)) {
+        dropdownMenu.classList.remove('show');
+      }
+      // Si el clic NO fue dentro del icono de notificaciones NI dentro del dropdown de notificaciones
+      if (!notificationsIcon.contains(event.target) && !notificationsDropdown.contains(event.target)) {
+        notificationsDropdown.classList.remove('show');
+      }
+    });
+
+    // --- Funcionalidad Selector de Cliente ---
+    function updateClientView() {
+      const selectedOption = clientSelector.options[clientSelector.selectedIndex];
+      const clientName = selectedOption.text;
+      selectedClientNameSpan.textContent = clientName;
+
+      const clientId = selectedOption.value;
+      let gradient = '';
+      if (clientId === 'camilo') {
+        gradient = `conic-gradient(
+          var(--accent-color) 0% 30%, var(--yellow) 30% 50%,
+          var(--green) 50% 85%, var(--orange) 85% 100% )`;
+        circularDiagram.textContent = `${clientName} - Progreso`;
+      } else if (clientId === 'edison') {
+        gradient = `conic-gradient(
+          var(--accent-color) 0% 15%, var(--yellow) 15% 60%,
+          var(--green) 60% 80%, var(--orange) 80% 100% )`;
+        circularDiagram.textContent = `${clientName} - Progreso`;
+      } else if (clientId === 'lilia') {
+        gradient = `conic-gradient(
+          var(--accent-color) 0% 25%, var(--yellow) 25% 50%,
+          var(--green) 50% 75%, var(--orange) 75% 100% )`;
+        circularDiagram.textContent = `${clientName} - Progreso`;
+      }
+      circularDiagram.style.background = gradient;
+      console.log(`Vista actualizada para el cliente: ${clientName} (ID: ${clientId})`);
+      // Aquí podrías añadir lógica para filtrar las tareas, citas, etc., por cliente si fuera necesario
+    }
+    clientSelector.addEventListener('change', updateClientView);
+    // Llamada inicial para establecer la vista del cliente predeterminado
+    updateClientView();
+
+    // --- Script para el toggle de servicios ---
+    document.querySelectorAll('.service-toggle').forEach(function(toggle) {
+      toggle.addEventListener('change', function() {
+        const card = this.closest('.card');
+        const toggleLabel = card.querySelector('.toggle-label');
+        const h3 = card.querySelector('h3'); // Seleccionar el h3
+        const lockIconClass = 'lock-icon'; // Clase para el icono de candado
+
+        if (!this.checked) {
+          // Servicio desactivado
+          card.style.opacity = '0.6'; // Atenuar la tarjeta
+          card.style.pointerEvents = 'none'; // Deshabilitar interacciones (excepto el toggle)
+          this.parentElement.style.pointerEvents = 'auto'; // Permitir hacer clic en el toggle
+          toggleLabel.textContent = "Desactivado";
+
+          // Añadir icono de candado si no existe
+          if (!h3.querySelector('.' + lockIconClass)) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = `fas fa-lock ${lockIconClass}`; // Añadir clase específica
+            lockIcon.style.fontSize = "0.9em";
+            lockIcon.style.marginLeft = "8px";
+            lockIcon.style.color = 'var(--secondary-color)'; // Opcional: color del candado
+            h3.appendChild(lockIcon);
+          }
+        } else {
+          // Servicio activado
+          card.style.opacity = '1'; // Restaurar opacidad
+          card.style.pointerEvents = 'auto'; // Habilitar interacciones
+          toggleLabel.textContent = "Activo";
+
+          // Eliminar icono de candado si existe
+          const lockIcon = h3.querySelector('.' + lockIconClass);
+          if (lockIcon) {
+            lockIcon.remove();
+          }
+        }
+      });
+
+      // Inicializar estado visual basado en el estado inicial del checkbox
+      const card = toggle.closest('.card');
+      const toggleLabel = card.querySelector('.toggle-label');
+      const h3 = card.querySelector('h3');
+      const lockIconClass = 'lock-icon';
+      if (!toggle.checked) {
+          card.style.opacity = '0.6';
+          card.style.pointerEvents = 'none';
+          toggle.parentElement.style.pointerEvents = 'auto';
+          toggleLabel.textContent = "Desactivado";
+          if (!h3.querySelector('.' + lockIconClass)) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = `fas fa-lock ${lockIconClass}`;
+            lockIcon.style.fontSize = "0.9em";
+            lockIcon.style.marginLeft = "8px";
+            lockIcon.style.color = 'var(--secondary-color)';
+            h3.appendChild(lockIcon);
+          }
+      } else {
+          toggleLabel.textContent = "Activo";
+          const lockIcon = h3.querySelector('.' + lockIconClass);
+          if (lockIcon) {
+              lockIcon.remove();
+          }
+      }
+    });
+
+    // --- Lógica (Placeholder) para el botón de agregar tarea ---
+    const addTaskButton = document.querySelector('.add-task-icon');
+    if (addTaskButton) {
+      addTaskButton.addEventListener('click', () => {
+        alert('Funcionalidad para agregar nueva tarea (a implementar)');
+        // Aquí iría la lógica para mostrar un modal, redirigir a otra página,
+        // o desplegar un formulario para crear una nueva tarea.
+      });
+    }
+
+  </script>
+</body>
+</html>

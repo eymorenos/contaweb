@@ -1,9 +1,8 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Consultoría Contable</title>
+    <title>Conecta Contable</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
@@ -596,7 +595,7 @@
         <div class="container header-container">
             <div class="logo">
                 <i class="fas fa-chart-pie"></i>
-                <span>Consultoría Contable</span>
+                <span>Conecta Contable</span>
             </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn">
                 <i class="fas fa-bars"></i>
@@ -606,7 +605,7 @@
                     <li><a href="#servicios"><i class="fas fa-briefcase"></i> Servicios</a></li>
                     <li><a href="#agenda"><i class="far fa-calendar-alt"></i> Agendar Cita</a></li>
                     <li><a href="#recursos"><i class="fas fa-book"></i> Recursos</a></li>
-                    <li><a href="#contacto"><i class="fas fa-envelope"></i> Contacto</a></li>
+                    <li><a href="#contacto"><i class="fas fa-sign-in-alt"></i> Inicio Sesión/Registro Gratis</a></li>
                 </ul>
             </nav>
         </div>
@@ -640,7 +639,6 @@
                     </div>
                     <h3>Declaración de Impuestos</h3>
                     <p>Preparamos y presentamos tus declaraciones fiscales cumpliendo con todas las normativas vigentes.</p>
-                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
@@ -648,7 +646,6 @@
                     </div>
                     <h3>Facturación Electrónica</h3>
                     <p>Implementamos y gestionamos tu sistema de facturación electrónica de manera eficiente.</p>
-                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
@@ -656,15 +653,13 @@
                     </div>
                     <h3>Estados Financieros</h3>
                     <p>Elaboramos y analizamos tus estados financieros para una mejor toma de decisiones.</p>
-                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-balance-scale"></i>
                     </div>
                     <h3>Asesoría Fiscal</h3>
-                    <p>Te ayudamos a optimizar tu carga fiscal y a cumplir con tus obligaciones tributarias.</p>
-                    <a href="#" class="btn-text">Más información <i class="fas fa-arrow-right"></i></a>
+                    <p>Te ayudamos a optimizar tu carga fiscal y a cumplir con tus obligaciones tributarias.</p>                   
                 </div>
             </div>
         </div>
@@ -728,53 +723,65 @@
         </div>
     </section>
     
-    <section id="recursos" class="resources">
+        <section id="recursos" class="resources">
         <div class="container resources-container">
             <div class="section-header">
-                <h2>Centro de Recursos</h2>
-                <p>Información y herramientas útiles para la gestión contable de tu negocio</p>
+                <h2>Centro de Recursos</h2> <!-- Título cambiado -->
+                <p>Descarga plantillas e infografías gratuitas para facilitar tu gestión contable.</p> <!-- Descripción cambiada -->
             </div>
             <div class="resources-grid">
                 <div class="resource-card">
                     <div class="resource-image">
-                        <img src="/api/placeholder/400/200" alt="Guías contables">
+                        <!-- Puedes poner una imagen representativa de plantillas CSV -->
+                        <img src="/api/placeholder/400/200" alt="Plantillas CSV Contables">
                     </div>
                     <div class="resource-content">
-                        <h3>Guías Contables</h3>
-                        <p>Descarga nuestras guías sobre contabilidad básica, facturación y declaraciones de impuestos.</p>
-                        <a href="#" class="btn-text">Ver guías <i class="fas fa-arrow-right"></i></a>
+                        <h3>Plantillas CSV Contables</h3> <!-- Título de recurso cambiado -->
+                        <p>Optimiza tu registro contable con nuestras plantillas CSV listas para usar (Ej: Estado de Resultados, Balance General).</p> <!-- Descripción cambiada -->
+                        <!-- Botón de descarga cambiado -->
+                        <a href="ruta/a/tus/plantillas.zip" download="Plantillas_Contables_ConectaContable.zip" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Descargar Plantillas
+                        </a>
                     </div>
                 </div>
                 <div class="resource-card">
                     <div class="resource-image">
-                        <img src="/api/placeholder/400/200" alt="Preguntas frecuentes">
+                        <!-- Puedes poner una imagen representativa de infografías -->
+                        <img src="/api/placeholder/400/200" alt="Infografías de Contabilidad">
                     </div>
                     <div class="resource-content">
-                        <h3>Preguntas Frecuentes</h3>
-                        <p>Resolvemos las dudas más comunes sobre contabilidad y finanzas para pequeñas empresas.</p>
-                        <a href="#" class="btn-text">Leer más <i class="fas fa-arrow-right"></i></a>
+                        <h3>Infografías de Contabilidad</h3> <!-- Título de recurso cambiado -->
+                        <p>Entiende conceptos clave de contabilidad básica de forma visual y sencilla. ¡Perfectas para empezar!</p> <!-- Descripción cambiada -->
+                         <!-- Botón de descarga cambiado -->
+                         <a href="ruta/a/tus/infografias.zip" download="Infografias_Contabilidad_ConectaContable.zip" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Descargar Infografías
+                        </a>
                     </div>
                 </div>
                 <div class="resource-card">
                     <div class="resource-image">
-                        <img src="/api/placeholder/400/200" alt="Calculadoras">
+                         <!-- Puedes poner una imagen de otra infografía específica o un pack -->
+                        <img src="/api/placeholder/400/200" alt="Guía Visual Impuestos">
                     </div>
                     <div class="resource-content">
-                        <h3>Calculadoras Financieras</h3>
-                        <p>Herramientas para calcular impuestos, depreciaciones, intereses y más para tu negocio.</p>
-                        <a href="#" class="btn-text">Usar calculadoras <i class="fas fa-arrow-right"></i></a>
+                        <h3>Guía Visual: Impuestos Comunes</h3> <!-- Título de recurso cambiado -->
+                        <p>Una infografía detallada sobre los impuestos más relevantes para pequeñas y medianas empresas en tu región.</p> <!-- Descripción cambiada -->
+                         <!-- Botón de descarga cambiado -->
+                         <a href="ruta/a/tu/infografia_impuestos.pdf" download="Infografia_Impuestos_ConectaContable.pdf" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Descargar Guía
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+  
     <footer id="contacto">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-column">
-                    <h3>Consultoría Contable</h3>
-                    <p>Ofrecemos servicios contables profesionales para pequeñas y medianas empresas, con más de 10 años de experiencia en el sector.</p>
+                    <h3>Conecta Contable</h3>
+                    <p>Ofrecemos servicios contables profesionales especializados en personas naturales y pequeños negocios apoyando su crecimiento y facilitando el cumplimiento de sus obligaciones tributarias y financieras.</p>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
@@ -788,7 +795,7 @@
                         <li><a href="#servicios">Servicios</a></li>
                         <li><a href="#agenda">Agendar Cita</a></li>
                         <li><a href="#recursos">Recursos</a></li>
-                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#contacto">Inicio Sesión/Registro Gratis</a></li>
                         <li><a href="#">Sobre Nosotros</a></li>
                     </ul>
                 </div>
@@ -815,7 +822,7 @@
                         </li>
                         <li>
                             <i class="fas fa-envelope"></i>
-                            <span>contacto@consultoria.com</span>
+                            <span>contacto@conectacontable.com</span>
                         </li>
                         <li>
                             <i class="far fa-clock"></i>
@@ -825,7 +832,7 @@
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2025 Consultoría Contable. Todos los derechos reservados.</p>
+                <p>&copy; 2025 Conecta Contable. Edwin Moreno.</p>
             </div>
         </div>
     </footer>
@@ -836,7 +843,7 @@
     
     <script>
         function openChat() {
-            alert("¡Bienvenido al asistente virtual de Consultoría Contable! ¿En qué podemos ayudarte hoy?");
+            alert("¡Bienvenido al asistente virtual de Conecta Contable! ¿En qué podemos ayudarte hoy?");
         }
         
         function scrollToSection(id) {

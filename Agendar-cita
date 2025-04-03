@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reserva de Cita - Conecta Contable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c6eb5;
+      --secondary-color: #1e4976;
+      --accent-color: #32b9c4;
+      --light-color: #f8f9fa;
+      --dark-color: #2c3e50;
+      --text-color: #333;
+      --gray-light: #e9ecef;
+      --shadow: 0 5px 15px rgba(0,0,0,0.1);
+      --transition: all 0.3s ease;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      padding: 15px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header .logo i {
+      color: var(--accent-color);
+    }
+    .container {
+      width: 100%;
+      max-width: 700px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--dark-color);
+    }
+    form {
+      background-color: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44,110,181,0.2);
+    }
+    .appointment-type {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+    }
+    .appointment-type label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      flex: 1;
+      transition: var(--transition);
+      text-align: center;
+    }
+    .appointment-type input {
+      display: none;
+    }
+    .appointment-type input:checked + label {
+      background-color: var(--accent-color);
+      color: white;
+      border-color: var(--accent-color);
+    }
+    .btn-submit {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: var(--primary-color);
+      border: none;
+      border-radius: 5px;
+      color: white;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .btn-submit:hover {
+      background-color: var(--secondary-color);
+    }
+    @media (max-width: 480px) {
+      .appointment-type {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-chart-pie"></i>
+      <span>Conecta Contable</span>
+    </div>
+  </header>
+  
+  <div class="container">
+    <h1>Reserva tu Cita con el Contador</h1>
+    <form id="citaForm">
+      <div class="form-group">
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" id="nombre" placeholder="Ingresa tu nombre completo" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Correo Electrónico</label>
+        <input type="email" id="email" placeholder="usuario@ejemplo.com" required>
+      </div>
+      <div class="form-group">
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" placeholder="Número de contacto" required>
+      </div>
+      <div class="form-group">
+        <label for="fecha">Fecha Preferida</label>
+        <input type="date" id="fecha" required>
+      </div>
+      <div class="form-group">
+        <label for="hora">Hora Preferida</label>
+        <input type="time" id="hora" required>
+      </div>
+      <div class="form-group">
+        <label>Tipo de Cita</label>
+        <div class="appointment-type">
+          <input type="radio" id="llamada" name="tipoCita" value="Llamada" required>
+          <label for="llamada"><i class="fas fa-phone"></i> Llamada</label>
+          <input type="radio" id="videoLlamada" name="tipoCita" value="Videollamada">
+          <label for="videoLlamada"><i class="fas fa-video"></i> Videollamada</label>
+          <input type="radio" id="presencial" name="tipoCita" value="Presencial">
+          <label for="presencial"><i class="fas fa-map-marker-alt"></i> Presencial</label>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="mensaje">Detalles o Comentarios</label>
+        <textarea id="mensaje" rows="4" placeholder="Ingresa algún comentario adicional..."></textarea>
+      </div>
+      <button type="submit" class="btn-submit">Confirmar Reserva</button>
+    </form>
+  </div>
+  
+  <script>
+    document.getElementById('citaForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      // Aquí se puede agregar la lógica para enviar el formulario mediante AJAX o redirigir a otra página.
+      alert("Tu cita ha sido reservada exitosamente.");
+      this.reset();
+    });
+  </script>
+</body>
+</html>

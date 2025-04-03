@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inicio de Sesión - Conecta Contable</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #2c6eb5;
+      --secondary-color: #1e4976;
+      --accent-color: #32b9c4;
+      --light-color: #f8f9fa;
+      --dark-color: #2c3e50;
+      --text-color: #333;
+      --gray-light: #e9ecef;
+      --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--light-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      padding-bottom: 40px;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      padding: 15px 0;
+      color: white;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+    header .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    header .logo i {
+      color: var(--accent-color);
+    }
+    .container {
+      width: 100%;
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: var(--dark-color);
+    }
+    /* Tabs */
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+      border-bottom: 2px solid var(--gray-light);
+    }
+    .tab-button {
+      flex: 1;
+      padding: 10px;
+      background: none;
+      border: none;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--dark-color);
+    }
+    .tab-button.active {
+      border-bottom: 3px solid var(--accent-color);
+      font-weight: bold;
+      color: var(--primary-color);
+    }
+    /* Login Form */
+    .login-form {
+      display: none;
+      animation: fadeIn 0.5s forwards;
+    }
+    .login-form.active {
+      display: block;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 10px 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    .form-group input:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(44, 110, 181, 0.2);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 30px;
+      background-color: var(--accent-color);
+      color: white;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      width: 100%;
+      margin-top: 10px;
+    }
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    }
+    .social-login {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .social-login p {
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--dark-color);
+    }
+    .btn-social {
+      background: none;
+      border: 1px solid #ddd;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      margin: 0 5px;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 1.2rem;
+      color: var(--primary-color);
+    }
+    .btn-social:hover {
+      background-color: var(--gray-light);
+    }
+    .register-link {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+    .register-link a {
+      color: var(--primary-color);
+      font-weight: 500;
+      text-decoration: underline;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <i class="fas fa-chart-pie"></i>
+      <span>Conecta Contable</span>
+    </div>
+  </header>
+
+  <section class="login-section">
+    <div class="container">
+      <h1>Inicia Sesión</h1>
+      <div class="tabs">
+        <button class="tab-button active" data-target="usuario">Usuario</button>
+        <button class="tab-button" data-target="contador">Contador</button>
+      </div>
+      <div class="login-forms">
+        <!-- Formulario para Usuario -->
+        <form id="form-usuario" class="login-form active">
+          <div class="form-group">
+            <label for="usuario-email">Correo Electrónico</label>
+            <!-- Eliminado 'required' -->
+            <input type="email" id="usuario-email" placeholder="usuario@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label for="usuario-password">Contraseña</label>
+            <!-- Eliminado 'required' -->
+            <input type="password" id="usuario-password" placeholder="********">
+          </div>
+          <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+          <div class="social-login">
+            <p>O ingresa con:</p>
+            <button type="button" class="btn-social"><i class="fab fa-google"></i></button>
+            <button type="button" class="btn-social"><i class="fab fa-facebook"></i></button>
+          </div>
+        </form>
+        <!-- Formulario para Contador -->
+        <form id="form-contador" class="login-form">
+          <div class="form-group">
+            <label for="contador-email">Correo Electrónico</label>
+            <!-- Eliminado 'required' -->
+            <input type="email" id="contador-email" placeholder="contador@ejemplo.com">
+          </div>
+          <div class="form-group">
+            <label for="contador-password">Contraseña</label>
+            <!-- Eliminado 'required' -->
+            <input type="password" id="contador-password" placeholder="********">
+          </div>
+          <button type="submit" class="btn"><i class="fas fa-sign-in-alt"></i> Iniciar Sesión</button>
+          <div class="social-login">
+            <p>O ingresa con:</p>
+            <button type="button" class="btn-social"><i class="fab fa-google"></i></button>
+            <button type="button" class="btn-social"><i class="fab fa-facebook"></i></button>
+          </div>
+        </form>
+      </div>
+      <!-- Enlace de registro con ID para controlarlo con JS -->
+      <p class="register-link" id="registerLink">¿No tienes cuenta? <a href="registro.html">Regístrate gratis</a></p>
+    </div>
+  </section>
+
+  <script>
+    // Alternar entre formularios y controlar visibilidad del enlace de registro
+    const tabButtons = document.querySelectorAll('.tab-button');
+    const loginForms = document.querySelectorAll('.login-form');
+    const registerLink = document.getElementById('registerLink'); // Obtener referencia al enlace
+
+    tabButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const targetForm = button.dataset.target; // 'usuario' o 'contador'
+
+        // Quitar clase 'active' de todos los botones y formularios
+        tabButtons.forEach(btn => btn.classList.remove('active'));
+        loginForms.forEach(form => form.classList.remove('active'));
+
+        // Activar el botón y formulario correspondiente
+        button.classList.add('active');
+        document.getElementById('form-' + targetForm).classList.add('active');
+
+        // Mostrar u ocultar el enlace de registro
+        if (targetForm === 'contador') {
+          registerLink.style.display = 'none'; // Ocultar para contador
+        } else {
+          registerLink.style.display = 'block'; // Mostrar para usuario
+        }
+      });
+    });
+
+    // Ejemplo de manejo de envío del formulario (se puede ajustar según necesidad)
+    loginForms.forEach(form => {
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        // Aquí iría la lógica real de inicio de sesión
+        // Por ahora, solo muestra una alerta
+        alert("Intentando inicio de sesión para el perfil: " + form.id.replace('form-', ''));
+        // No reseteamos el form para que el usuario vea lo que ingresó si hay error
+        // form.reset();
+      });
+    });
+
+     // Asegurar estado inicial correcto del enlace de registro al cargar la página
+     // (ya que 'usuario' es activo por defecto)
+     if (document.querySelector('.tab-button[data-target="usuario"].active')) {
+        registerLink.style.display = 'block';
+     } else if (document.querySelector('.tab-button[data-target="contador"].active')) {
+        registerLink.style.display = 'none';
+     }
+
+  </script>
+</body>
+</html>
